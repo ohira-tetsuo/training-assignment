@@ -1,15 +1,9 @@
-package bamv.training.microposts.dto;
+package bamv.training.microposts.entity;
 
-import java.beans.JavaBean;
-
-public class UserDto{
+public class MUser {
     private String userId;
     private String name;
-
-    public UserDto(String userId, String name) {
-        this.userId = userId;
-        this.name = name;
-    }
+    private String password;
 
     public String getUserId() {
         return userId;
@@ -25,5 +19,13 @@ public class UserDto{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

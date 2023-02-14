@@ -1,36 +1,3 @@
-INSERT INTO tasklist
-SELECT
-    '0001',
-    'プロになるJavaを通読する',
-    '2023-02-01',
-    TRUE
-WHERE
-    NOT EXISTS (
-        SELECT 1 FROM tasklist WHERE id='0001'
-    );
-
-INSERT INTO tasklist
-SELECT
-    '0002',
-    'プロになるJavaのサンプルWebアプリを実装する',
-    '2023-02-07',
-    TRUE
-WHERE
-    NOT EXISTS (
-        SELECT 1 FROM tasklist WHERE id='0002'
-    );
-
-INSERT INTO tasklist
-SELECT
-    '0003',
-    'ツイッタークローンのver1.0を完成させる',
-    '2023-02-20',
-    FALSE
-WHERE
-    NOT EXISTS (
-        SELECT 1 FROM tasklist WHERE id='0003'
-    );
-
 /* m_user */
 INSERT INTO m_user
 SELECT

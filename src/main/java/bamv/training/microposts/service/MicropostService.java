@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface MicropostService {
 
-    int selectMicropostNumber(String userId);
+    int countMicropostNumber(String userId);
 
-    List<MicropostDto> selectFollowMicropost(String userId, int page);
-    void insertTestMicroposts();
+    List<MicropostDto> searchFollowMicropost(String userId, int page);
 
-    void insertNewMicropost(String userId, String content);
+    List<MicropostDto> searchUserMicropost(String userId, int page);
+
+    int addNewMicropost(String userId, String content);
 }

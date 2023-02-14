@@ -1,6 +1,5 @@
-package bamv.training.microposts.security;
+package bamv.training.microposts.userAuth;
 
-import bamv.training.microposts.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -8,24 +7,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     @Autowired
-    UserDetailsService userDetailsService;
+    UserAuthUserDetailsService userDetailsService;
     @Bean
     PasswordEncoder passwordEncoder() {
-        // サンプルアプリのためパスワードの暗号化はしない
+        // パスワードは平文で保存する。サンプルアプリであるため。
         return NoOpPasswordEncoder.getInstance();
     }
 
@@ -33,7 +26,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll()
+                        // リソース類を許可
+                        .requestMatchers("/resources/**", "/static/**","/webjars/**").permitAll()
+                        // サインアップ画面を許可
+                        .requestMatchers("/signup").permitAll()
+                        // H2コンソールを許可
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated()
                 )

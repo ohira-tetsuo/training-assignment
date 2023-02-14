@@ -23,8 +23,6 @@
                         <div class="col-md-8">
                             <div>
                                 <h5 th:text="${myUserName}"></h5>
-                                <p><a href="./myprofile">view my profile</a></p>
-                                <p><span th:text="${myMicropostsNumber}"></span><small class="text-muted"> microposts</small></p>
                                 <span
                                 ><span th:text="${myFollowNumber}"></span
                                 ><small class="text-muted"> following</small></span
@@ -37,25 +35,6 @@
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <section>
-                <form action="/postnewmicropost" method="post">
-                    <div class="mb-3">
-                <textarea
-                        id="content"
-                        name="content"
-                        placeholder="Compose new micropost..."
-                        rows="5"
-                        cols="33"
-                        class="form-control"
-                ></textarea>
-                    </div>
-                    <input
-                            type="submit"
-                            class="btn btn-primary w-100"
-                    />
-                </form>
             </section>
         </aside>
 
@@ -92,17 +71,17 @@
                 <ul class="pagination">
                     <li class="page-item">
                         <th:block th:if="${page - 1} > 0">
-                          <a class="page-link" th:href="@{micropostshome?page={page}(page=${page - 1})}">Previous</a>
+                            <a class="page-link" th:href="@{myprofile?page={page}(page=${page - 1})}">Previous</a>
                         </th:block>
                         <th:block th:if="${page - 1} <= 0">
                             <a class="page-link" href="#">Previous</a>
                         </th:block>
                     </li>
-                    <li class="page-item"><a class="page-link" th:href="@{micropostshome?page={page}(page=${page})}" th:text="${page}"></a></li>
-                    <li class="page-item"><a class="page-link" th:href="@{micropostshome?page={page}(page=${page + 1 })}" th:text="${page + 1}"></a></li>
-                    <li class="page-item"><a class="page-link" th:href="@{micropostshome?page={page}(page=${page + 2})}" th:text="${page + 2}"></a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{myprofile?page={page}(page=${page})}" th:text="${page}"></a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{myprofile?page={page}(page=${page + 1 })}" th:text="${page + 1}"></a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{myprofile?page={page}(page=${page + 2})}" th:text="${page + 2}"></a></li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{micropostshome?page={page}(page=${page + 1})}">Next</a>
+                        <a class="page-link" th:href="@{myprofile?page={page}(page=${page + 1})}">Next</a>
                     </li>
                 </ul>
             </nav>

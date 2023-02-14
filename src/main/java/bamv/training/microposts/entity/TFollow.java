@@ -1,6 +1,10 @@
-package bamv.training.microposts.dto;
+package bamv.training.microposts.entity;
 
-public class FollowDto {
+public class TFollow {
+    private String followId;
+    private String followingUserId;
+    private String followedUserId;
+
     public String getFollowId() {
         return followId;
     }
@@ -24,8 +28,4 @@ public class FollowDto {
     public void setFollowedUserId(String followedUserId) {
         this.followedUserId = followedUserId;
     }
-
-    public String followId;
-    public String followingUserId;
-    public String followedUserId;
 }

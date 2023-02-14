@@ -1,24 +1,19 @@
-package bamv.training.microposts.dto;
+package bamv.training.microposts.entity;
 
 import java.time.LocalDateTime;
 
-public class MicropostDto {
-    private String name;
+public class TMicropost {
+    private String micropostId;
     private String content;
+    private String userId;
     private LocalDateTime postedDatetime;
 
-    public MicropostDto(String name, String content, LocalDateTime postedDatetime) {
-        this.name = name;
-        this.content = content;
-        this.postedDatetime = postedDatetime;
+    public String getMicropostId() {
+        return micropostId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setMicropostId(String micropostId) {
+        this.micropostId = micropostId;
     }
 
     public String getContent() {
@@ -27,6 +22,14 @@ public class MicropostDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getPostedDatetime() {

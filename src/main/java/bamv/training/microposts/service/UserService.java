@@ -5,5 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService{
     UserDto selectUser(String userId);
-    UserDetails selectUserForLogin(String userId);
+
+    int createNewUser(String userId, String name, String password);
 }
