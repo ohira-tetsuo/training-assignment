@@ -1,9 +1,8 @@
 package bamv.training.microposts.dto;
 
-import java.beans.JavaBean;
-
-public class UserDto{
+public class UserDto {
     private String userId;
+
     private String name;
 
     public UserDto(String userId, String name) {

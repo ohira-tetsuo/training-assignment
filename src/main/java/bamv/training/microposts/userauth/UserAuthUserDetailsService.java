@@ -1,4 +1,4 @@
-package bamv.training.microposts.userAuth;
+package bamv.training.microposts.userauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,6 @@ public class UserAuthUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails userDetails = userAuthService.searchUserForLogin(username);
-        return userDetails;
+        return userAuthService.searchUserForLogin(username);
     }
 }

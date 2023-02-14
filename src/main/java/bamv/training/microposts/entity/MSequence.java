@@ -2,7 +2,9 @@ package bamv.training.microposts.entity;
 
 public class MSequence {
     private String idName;
+
     private String prefix;
+
     private int currentNumber;
 
     public String getIdName() {

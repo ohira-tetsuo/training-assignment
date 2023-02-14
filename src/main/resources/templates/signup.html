@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet" >
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet">
     <title>Sign up</title>
 </head>
 <body>
 <span th:replace="~{header :: header}"></span>
 <main class="container w-50 mx-auto">
     <h1>Sign up</h1>
-    <form action="/signup" method="post">
+    <form th:action="@{/signup}" th:object="${userForm}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors()}" th:text="バリデーションエラーが発生しました。"></div>
         <label for="userid">User ID</label>
         <input
                 class="form-control"
                 type="text"
                 name="userid"
+                th:field="*{userId}"
                 id="userid"
         />
 
@@ -25,6 +27,7 @@
                 class="form-control"
                 type="text"
                 name="name"
+                th:field="*{userName}"
                 id="name"
         />
 
@@ -33,6 +36,7 @@
                 class="form-control mb-3"
                 type="password"
                 name="password"
+                th:field="*{password}"
                 id="password"
         />
 

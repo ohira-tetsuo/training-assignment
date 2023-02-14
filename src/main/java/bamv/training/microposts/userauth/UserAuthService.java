@@ -1,4 +1,4 @@
-package bamv.training.microposts.userAuth;
+package bamv.training.microposts.userauth;
 
 import bamv.training.microposts.dao.MUserDao;
 import bamv.training.microposts.entity.MUser;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 public class UserAuthService {
     @Autowired
     private MUserDao mUserDao;
+
     public UserDetails searchUserForLogin(String userId) {
         MUser mUser = mUserDao.findUser(userId);
-        UserDetails userDetails = new UserAuthUserDetails(
+        return new UserAuthUserDetails(
                 mUser.getUserId(),
                 mUser.getPassword()
         );
-        return userDetails;
     }
 }

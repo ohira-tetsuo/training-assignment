@@ -2,7 +2,9 @@ package bamv.training.microposts.entity;
 
 public class MUser {
     private String userId;
+
     private String name;
+
     private String password;
 
     public String getUserId() {

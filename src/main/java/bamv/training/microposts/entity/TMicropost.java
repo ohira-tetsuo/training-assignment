@@ -4,8 +4,11 @@ import java.time.LocalDateTime;
 
 public class TMicropost {
     private String micropostId;
+
     private String content;
+
     private String userId;
+
     private LocalDateTime postedDatetime;
 
     public String getMicropostId() {

@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TFollowDao {
     int countFollowingNumber(String userId);
+
     int countFollowerNumber(String userId);
 }

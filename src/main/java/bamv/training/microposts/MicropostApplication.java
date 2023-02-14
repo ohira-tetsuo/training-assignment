@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MicropostApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MicropostApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MicropostApplication.class, args);
+    }
 
 }

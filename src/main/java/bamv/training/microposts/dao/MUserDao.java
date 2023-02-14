@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MUserDao {
     MUser findUser(String userId);
+
     int addNewUser(String userId, String name, String password);
 }

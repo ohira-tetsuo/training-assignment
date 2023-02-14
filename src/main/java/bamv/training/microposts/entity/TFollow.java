@@ -2,7 +2,9 @@ package bamv.training.microposts.entity;
 
 public class TFollow {
     private String followId;
+
     private String followingUserId;
+
     private String followedUserId;
 
     public String getFollowId() {

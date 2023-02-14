@@ -1,16 +1,20 @@
 package bamv.training.microposts.controller;
 
+import bamv.training.microposts.dto.MicropostDto;
+import bamv.training.microposts.dto.UserDto;
+import bamv.training.microposts.form.MicropostForm;
+import bamv.training.microposts.form.UserForm;
 import bamv.training.microposts.service.FollowService;
 import bamv.training.microposts.service.MicropostService;
 import bamv.training.microposts.service.UserService;
-import bamv.training.microposts.dto.MicropostDto;
-import bamv.training.microposts.dto.UserDto;
-
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,13 +24,15 @@ import java.util.List;
 public class MicropostsController {
     @Autowired
     private UserService userService;
+
     @Autowired
     private MicropostService micropostService;
+
     @Autowired
     private FollowService followService;
 
     @GetMapping("/micropostshome")
-    String micropostshome(Model model, HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "1") int page) {
+    String micropostshome(Model model, @ModelAttribute MicropostForm micropostForm, BindingResult bindingResult, HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "1") int page) {
         /* ユーザー認証情報からユーザIDを取得 */
         String userId = httpServletRequest.getRemoteUser();
 
@@ -44,15 +50,20 @@ public class MicropostsController {
         model.addAttribute("myFollowerNumber", myFollowerNumber); // 自ユーザーのフォロワー数
         model.addAttribute("followsMicropostList", followsMicropostList); // 現在表示しているページ
         model.addAttribute("page", page);
+
         return "micropostshome";
     }
 
     @PostMapping("/postnewmicropost")
-    String postnewmicropost(Model model,  HttpServletRequest httpServletRequest, @RequestParam(name = "content") String content) {
+    String postnewmicropost(Model model, HttpServletRequest httpServletRequest, @ModelAttribute @Valid MicropostForm micropostForm, BindingResult bindingResult) {
         /* ユーザー認証情報からユーザIDを取得 */
         String userId = httpServletRequest.getRemoteUser();
 
-        if (content != "") micropostService.addNewMicropost(userId, content);
+        if (bindingResult.hasErrors())
+            return micropostshome(model, micropostForm, bindingResult, httpServletRequest, 1);
+
+        micropostService.addNewMicropost(userId, micropostForm.getContent());
+
         return "redirect:/micropostshome";
     }
 
@@ -78,20 +89,22 @@ public class MicropostsController {
         model.addAttribute("myFollowerNumber", myFollowerNumber); // 自ユーザーのフォロワー数
         model.addAttribute("followsMicropostList", followsMicropostList); // 現在表示しているページ
         model.addAttribute("page", page);
+
         return "myprofile";
     }
 
     @GetMapping("/signup")
-    String signup(Model model) {
+    String signup(Model model, @ModelAttribute UserForm userForm, BindingResult bindingResult) {
         return "signup";
     }
 
     @PostMapping("/signup")
-    String signup(Model model,
-                  @RequestParam(name = "userid") String userId,
-                  @RequestParam(name = "name") String name,
-                  @RequestParam(name = "password") String password) {
-        userService.createNewUser(userId, name, password);
+    String postsignup(Model model, @ModelAttribute @Valid UserForm userForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return signup(model, userForm, bindingResult);
+
+        userService.createNewUser(userForm.getUserId(), userForm.getUserName(), userForm.getPassword());
+
         return "redirect:/login";
     }
 }

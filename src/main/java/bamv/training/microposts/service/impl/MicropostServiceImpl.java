@@ -6,61 +6,58 @@ import bamv.training.microposts.dto.MicropostDto;
 import bamv.training.microposts.service.MicropostService;
 import bamv.training.microposts.service.SequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class MicropostServiceImpl implements MicropostService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @Autowired
     private SequenceService sequenceService;
+
     @Autowired
     private TMicropostDao tMicropostDao;
 
     @Autowired
     private MUserDao mUserDao;
+
     @Override
     public int countMicropostNumber(String userId) {
-        int cnt = tMicropostDao.countMicropostNumber(userId);
-        return cnt;
-    }
-    @Override
-    public List<MicropostDto> searchFollowMicropost(String userId, int page) {
-      List<MicropostDto> micropostDto = tMicropostDao.searchFollowingMicropost(userId, page)
-              .stream().map( it ->
-                      new MicropostDto(
-                          mUserDao.findUser(it.getUserId()).getName(),
-                          it.getContent(),
-                          it.getPostedDatetime()
-                      )
-              ).toList();
-      return micropostDto;
+        return tMicropostDao.countMicropostNumber(userId);
     }
 
     @Override
-    public List<MicropostDto> searchUserMicropost(String userId, int page) {
-        List<MicropostDto> micropostDto = tMicropostDao.searchUserMicropost(userId, page)
-                .stream().map( it ->
+    public List<MicropostDto> searchFollowMicropost(String userId, int page) {
+        return tMicropostDao.searchFollowingMicropost(userId, page)
+                .stream().map(it ->
                         new MicropostDto(
                                 mUserDao.findUser(it.getUserId()).getName(),
                                 it.getContent(),
                                 it.getPostedDatetime()
                         )
                 ).toList();
-        return micropostDto;
+    }
+
+    @Override
+    public List<MicropostDto> searchUserMicropost(String userId, int page) {
+        return tMicropostDao.searchUserMicropost(userId, page)
+                .stream().map(it ->
+                        new MicropostDto(
+                                mUserDao.findUser(it.getUserId()).getName(),
+                                it.getContent(),
+                                it.getPostedDatetime()
+                        )
+                ).toList();
     }
 
     @Override
     @Transactional
     public int addNewMicropost(String userId, String content) {
-        int cnt = tMicropostDao.addNewMicropost(userId, content);
-        return cnt;
+        return tMicropostDao.addNewMicropost(userId, content);
     }
 }

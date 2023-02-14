@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet" >
-  <title>Login</title>
+    <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Login</title>
 </head>
 <body>
 <span th:replace="~{header :: header}"></span>
 <main class="container w-50 mx-auto">
-  <h1>Log in</h1>
-  <form th:action="@{/login}" method="post">
-    <label for="username">User Id</label>
-    <input class="form-control" type="text" name="username" id="username" />
+    <h1>Log in</h1>
+    <form th:action="@{/login}" method="post">
+        <label for="username">User Id</label>
+        <input class="form-control" type="text" name="username" id="username"/>
 
-    <label for="password">Password</label>
-    <input
-            class="form-control mb-3"
-            type="password"
-            name="password"
-            id="password"
-    />
+        <label for="password">Password</label>
+        <input
+                class="form-control mb-3"
+                type="password"
+                name="password"
+                id="password"
+        />
 
-    <input
-            type="submit"
-            name="commit"
-            value="Log in"
-            class="btn btn-primary mb-3"
-    />
-  </form>
-  <p>New user? <a href="./signup">Sign up now!</a></p>
+        <input
+                type="submit"
+                name="commit"
+                value="Log in"
+                class="btn btn-primary mb-3"
+        />
+    </form>
+    <p>New user? <a href="./signup">Sign up now!</a></p>
 </main>
 </body>
 </html>
