@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class MUserDaoImpl implements MUserDao {
     @Autowired
@@ -17,6 +19,12 @@ public class MUserDaoImpl implements MUserDao {
         RowMapper<MUser> rowMapper = new BeanPropertyRowMapper<>(MUser.class);
         String query = "SELECT * FROM m_user WHERE user_id = ?";
         return jdbcTemplate.queryForObject(query, rowMapper, userId);
+    }
+
+    public List<MUser> searchUser(String userId) {
+        RowMapper<MUser> rowMapper = new BeanPropertyRowMapper<>(MUser.class);
+        String query = "SELECT * FROM m_user WHERE user_id = ?";
+        return jdbcTemplate.query(query, rowMapper, userId);
     }
 
     public int addNewUser(String userId, String name, String password) {
