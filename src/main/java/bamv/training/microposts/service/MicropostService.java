@@ -12,5 +12,5 @@ public interface MicropostService {
 
     List<MicropostDto> searchUserMicropost(String userId, int page);
 
-    int addNewMicropost(String userId, String content);
+    int createNewMicropost(String userId, String content);
 }

@@ -57,7 +57,7 @@ public class MicropostServiceImpl implements MicropostService {
 
     @Override
     @Transactional
-    public int addNewMicropost(String userId, String content) {
+    public int createNewMicropost(String userId, String content) {
         return tMicropostDao.addNewMicropost(userId, content);
     }
 }

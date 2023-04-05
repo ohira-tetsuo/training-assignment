@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private MUserDao mUserDao;
 
     @Override
-    public UserDto selectUser(String userId) {
+    public UserDto findUser(String userId) {
         MUser mUser = mUserDao.findUser(userId);
         return new UserDto(
                 mUser.getUserId(),
