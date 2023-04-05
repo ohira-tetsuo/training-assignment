@@ -11,12 +11,12 @@ public class FollowServiceImpl implements FollowService {
     private TFollowDao tFollowDao;
 
     @Override
-    public int selectFollowNumber(String userId) {
+    public int findFollowNumber(String userId) {
         return tFollowDao.countFollowingNumber(userId);
     }
 
     @Override
-    public int selectFollowerNumber(String userId) {
+    public int findFollowerNumber(String userId) {
         return tFollowDao.countFollowerNumber(userId);
     }
 }
