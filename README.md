@@ -6,9 +6,13 @@ IntelliJ IDEA
 
 ## 構成
 Java 17
+
 Spring Boot2
+
 H2 Database
+
 Thymeleaf
+
 ※参考図書 第6部も参照のこと
 
 ## 環境構築
