@@ -1,2 +1,2 @@
-# traning
+# training
 microposts

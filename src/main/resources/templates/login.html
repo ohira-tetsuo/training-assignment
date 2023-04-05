@@ -2,18 +2,18 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" rel="stylesheet">
-    <title>Login</title>
+    <title>ログイン</title>
 </head>
 <body>
 <span th:replace="~{header :: header}"></span>
 <main class="container w-50 mx-auto">
-    <h1>Log in</h1>
+    <h1>ログイン</h1>
     <form th:action="@{/login}" method="post">
         <div class="alert alert-danger" th:if="${param.error}" th:text="認証エラーが発生しました。"></div>
-        <label for="username">User Id</label>
+        <label for="username">ユーザーID</label>
         <input class="form-control" type="text" name="username" id="username"/>
 
-        <label for="password">Password</label>
+        <label for="password">パスワード</label>
         <input
                 class="form-control mb-3"
                 type="password"
@@ -24,11 +24,11 @@
         <input
                 type="submit"
                 name="commit"
-                value="Log in"
+                value="ログイン"
                 class="btn btn-primary mb-3"
         />
     </form>
-    <p>New user? <a href="./signup">Sign up now!</a></p>
+    <p>登録はお済みですか? <a href="./signup">新規登録</a></p>
 </main>
 </body>
 </html>
