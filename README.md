@@ -27,6 +27,8 @@ Thymeleaf
 
 <img src="images/runconfigration.png">
 
-3.ブラウザから http://localhost:8080/micropostshome にアクセス
+3.Shift+F10キー（もしくは実行構成の右側にある実行アイコン）を押してプロジェクトを実行
+
+4.ブラウザから http://localhost:8080/micropostshome にアクセス
 
 ※参考図書 第6部も参照のこと
