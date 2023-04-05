@@ -7,7 +7,7 @@ IntelliJ IDEA
 ## 構成
 Java 17
 
-Spring Boot2
+Spring Boot 2
 
 H2 Database
 
