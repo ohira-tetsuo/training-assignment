@@ -49,3 +49,5 @@ User Name: user
 
 Password: password
 
+※ H2コンソールについては参考図書 第6部も参照のこと
+
