@@ -32,3 +32,20 @@ Thymeleaf
 4.ブラウザから http://localhost:8080/micropostshome にアクセス
 
 ※参考図書 第6部も参照のこと
+
+## ログインパスワード
+### Micropostsアプリ
+<img src="images/micropostslogin.png">
+USER ID: user1
+
+Password: password
+
+### H2コンソール
+<img src="images/h2consolelogin.png">
+
+JDBC URL: jdbc:h2:~/micropostsdb
+
+User Name: user
+
+Password: password
+
