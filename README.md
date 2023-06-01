@@ -37,13 +37,13 @@ Thymeleaf
 
 ## ログインパスワード
 ### Micropostsアプリ
-<img src="images/micropostslogin.png">
+<img src="image/login.png">
 USER ID: user1
 
 Password: password
 
 ### H2コンソール
-<img src="images/h2consolelogin.png">
+<img src="image/h2database.png">
 
 JDBC URL: jdbc:h2:~/micropostsdb
 
