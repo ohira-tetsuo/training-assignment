@@ -23,11 +23,11 @@ Thymeleaf
 ## 起動方法
 1.プロジェクト構造の設定
 
-<img src="images/projectstructure.png">
+<img src="image/projectstructure.png">
 
 2.実行/デバッグ構成の設定
 
-<img src="images/runconfigration.png">
+<img src="image/runconfigration.png">
 
 3.Shift+F10キー（もしくは実行構成の右側にある実行アイコン）を押してプロジェクトを実行
 
