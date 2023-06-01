@@ -11,6 +11,8 @@ Java 17
 
 Spring Boot 2
 
+Tomcat 10
+
 H2 Database
 
 Thymeleaf
