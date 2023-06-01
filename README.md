@@ -27,7 +27,7 @@ Thymeleaf
 
 2.実行/デバッグ構成の設定
 
-<img src="image/runconfigration.png">
+<img src="image/runconfiguration.png">
 
 3.Shift+F10キー（もしくは実行構成の右側にある実行アイコン）を押してプロジェクトを実行
 
