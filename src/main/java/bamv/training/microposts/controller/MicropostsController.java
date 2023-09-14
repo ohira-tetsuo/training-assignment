@@ -27,7 +27,7 @@ import java.util.List;
 @Controller
 public class MicropostsController {
     //あとでServiceに分離する/////////////////////
-    record User(String user_id, String name, String password) {
+    record User(String user_id, String name) {
     }
     private List<MicropostsController.User> userList = new ArrayList<>();
     private final UserListDao dao; //daoはなんかの予約語？

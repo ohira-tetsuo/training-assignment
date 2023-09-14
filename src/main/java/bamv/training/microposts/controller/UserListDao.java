@@ -23,9 +23,10 @@ public class UserListDao {
         List<MicropostsController.User> userList = result.stream()
                 .map((Map<String, Object> row) -> new MicropostsController.User(
                         row.get("user_id").toString(),
-                        row.get("name").toString(),
-                        row.get("password").toString()))
+                        row.get("name").toString()))
                 .toList();
         return userList;
     }
+
+
 }
