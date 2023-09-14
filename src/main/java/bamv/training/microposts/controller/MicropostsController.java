@@ -48,9 +48,11 @@ public class MicropostsController {
 
     //あとで、下に移動させる
     @GetMapping("/userlist")
-    String userlist(Model model) {
+    String userlist(Model model, HttpServletRequest httpServletRequest) {
+        String userId = httpServletRequest.getRemoteUser();
         List<User> userList = dao.findAll();
         model.addAttribute("userList", userList);
+        model.addAttribute("loggedInUserId", userId);
         return "userlist";
     }
     //////////////////////////////////////////////
