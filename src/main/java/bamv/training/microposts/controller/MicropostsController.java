@@ -8,6 +8,7 @@ import bamv.training.microposts.form.MicropostForm;
 import bamv.training.microposts.form.UserForm;
 import bamv.training.microposts.service.FollowService;
 import bamv.training.microposts.service.MicropostService;
+import bamv.training.microposts.service.UserListService;
 import bamv.training.microposts.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,14 +31,14 @@ public class MicropostsController {
     //record User(String userId, String name) {
     //}
     //private List<UserDto> userList = new ArrayList<>();
-    private final TUserListDao dao; //daoはなんかの予約語？
-    @Autowired
-    private TUserListDaoImpl TUserListDao;
+    //private final TUserListDao dao; //daoはなんかの予約語？
+    //@Autowired
+    //private TUserListDaoImpl TUserListDao;
 
     //@Autowired
-    MicropostsController(TUserListDao dao) {
-        this.dao = dao;
-    }
+    //MicropostsController(TUserListDao dao) {
+    //    this.dao = dao;
+    //}
     ////////////////////////////////////////////
 
     @Autowired
@@ -50,10 +51,12 @@ public class MicropostsController {
     private FollowService followService;
 
     //あとで、下に移動させる
+    @Autowired
+    private UserListService userListService;
     @GetMapping("/userlist")
     String userlist(Model model, HttpServletRequest httpServletRequest) {
         String userId = httpServletRequest.getRemoteUser();
-        List<UserDto> userList = dao.findAll();
+        List<UserDto> userList = userListService.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("loggedInUserId", userId);
         return "userlist";
@@ -64,13 +67,13 @@ public class MicropostsController {
     @GetMapping("/follow")
     String follow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
         String userId = httpServletRequest.getRemoteUser();
-        dao.follow(userId, followeeId);
+        userListService.follow(userId, followeeId);
         return "redirect:/userlist";
     }
     @GetMapping("/unfollow")
     String unfollow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
         String userId = httpServletRequest.getRemoteUser();
-        dao.unfollow(userId, followeeId);
+        userListService.unfollow(userId, followeeId);
         return "redirect:/userlist";
     }
 
