@@ -1,5 +1,7 @@
 package bamv.training.microposts.controller;
 
+import bamv.training.microposts.dao.TUserListDao;
+import bamv.training.microposts.dao.impl.TUserListDaoImpl;
 import bamv.training.microposts.dto.MicropostDto;
 import bamv.training.microposts.dto.UserDto;
 import bamv.training.microposts.form.MicropostForm;
@@ -7,7 +9,6 @@ import bamv.training.microposts.form.UserForm;
 import bamv.training.microposts.service.FollowService;
 import bamv.training.microposts.service.MicropostService;
 import bamv.training.microposts.service.UserService;
-import bamv.training.microposts.controller.UserListDao;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,9 +30,12 @@ public class MicropostsController {
     //record User(String userId, String name) {
     //}
     //private List<UserDto> userList = new ArrayList<>();
-    private final UserListDao dao; //daoはなんかの予約語？
+    private final TUserListDao dao; //daoはなんかの予約語？
     @Autowired
-    MicropostsController(UserListDao dao) {
+    private TUserListDaoImpl TUserListDao;
+
+    //@Autowired
+    MicropostsController(TUserListDao dao) {
         this.dao = dao;
     }
     ////////////////////////////////////////////

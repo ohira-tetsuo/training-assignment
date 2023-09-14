@@ -1,5 +1,6 @@
-package bamv.training.microposts.controller;
+package bamv.training.microposts.dao.impl;
 
+import bamv.training.microposts.dao.TUserListDao;
 import bamv.training.microposts.dto.UserDto;
 import bamv.training.microposts.service.impl.SequenceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +11,19 @@ import  java.util.List;
 import java.util.Map;
 
 @Service
-public class UserListDao {
-    private final JdbcTemplate jdbcTemplate;
-    private final SequenceServiceImpl sequenceService;
-
+public class TUserListDaoImpl implements TUserListDao {
     @Autowired
-    UserListDao(JdbcTemplate jdbcTemplate, SequenceServiceImpl sequenceService) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.sequenceService = sequenceService;
-    }
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private SequenceServiceImpl sequenceService;
 
+    //これがいらなかったぽい。
+    //@Autowired
+    //UserListDao(JdbcTemplate jdbcTemplate, SequenceServiceImpl sequenceService) {
+    //    this.jdbcTemplate = jdbcTemplate;
+    //    this.sequenceService = sequenceService;
+    //}
+    @Override
     public List<UserDto> findAll() {
         String query = "SELECT user_id AS userId, name FROM m_user";
 
@@ -33,6 +37,7 @@ public class UserListDao {
     }
 
     //INSERTの実行前に同一userId, followeeIdでレコードがあれば何もせずにreturnする
+    @Override
     public int follow(String userId, String followeeId) {
         String checkDuplicateSql = "SELECT COUNT(*) FROM t_follow WHERE following_user_id = ? AND followed_user_id = ?";
         int count = jdbcTemplate.queryForObject(checkDuplicateSql, Integer.class, userId, followeeId);
@@ -44,6 +49,7 @@ public class UserListDao {
         return number;
     }
 
+    @Override
     public int unfollow(String userId, String followeeId) {
         int number = jdbcTemplate.update("DELETE FROM t_follow WHERE following_user_id = ? AND followed_user_id = ?", userId, followeeId);
         return number;
