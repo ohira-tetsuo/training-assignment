@@ -55,14 +55,19 @@ public class MicropostsController {
     }
     //////////////////////////////////////////////
 
-    ////follow, unfollow
-    //@GetMapping("/follow")
-    //String follow(Model model) {
-    //}
-    //@GetMapping("/unfollow")
-    //String unfollow(Model model) {
-    //}
-    /////////////////////////////////////////////////
+    //follow, unfollow
+    @GetMapping("/follow")
+    String follow(Model model) {
+        return "redirect:/userlist";
+    }
+    @GetMapping("/unfollow")
+    String unfollow(Model model) {
+        return "redirect:/userlist";
+    }
+
+    /////////////////////////////////////////////
+
+
     @GetMapping("/micropostshome")
     String micropostshome(Model model, @ModelAttribute MicropostForm micropostForm, BindingResult bindingResult, HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "1") int page) {
         /* ユーザー認証情報からユーザIDを取得 */
