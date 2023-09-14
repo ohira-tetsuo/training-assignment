@@ -27,6 +27,10 @@ public class UserListDao {
                 .toList();
         return userList;
     }
-
+    //アンフォローのメソッド
+    public int unfollow(String userId, String followeeId) {
+        int number = jdbcTemplate.update("DELETE FROM t_follow WHERE following_user_id = ? AND followed_user_id = ?", userId, followeeId);
+        return number;
+    }
 
 }

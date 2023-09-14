@@ -61,7 +61,9 @@ public class MicropostsController {
         return "redirect:/userlist";
     }
     @GetMapping("/unfollow")
-    String unfollow(Model model) {
+    String unfollow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
+        String userId = httpServletRequest.getRemoteUser();
+        dao.unfollow(userId, followeeId);
         return "redirect:/userlist";
     }
 
