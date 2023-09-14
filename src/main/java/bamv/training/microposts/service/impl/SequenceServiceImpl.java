@@ -21,6 +21,9 @@ public class SequenceServiceImpl implements SequenceService {
     public String issueSequence(String idName) {
         MSequence mSequence = mSequenceDao.findSequence(idName);
         mSequenceDao.incrementSequenceCurrentNumber(mSequence);
-        return String.format("MP%08d", mSequence.getCurrentNumber() + 1);
+        //現時点ではMPとFLの2つのテーブルしかないが、付番する場所が増えると煩雑になる。
+        if (idName.equals("micropost_id"))
+            return String.format("MP%08d", mSequence.getCurrentNumber() + 1);
+        return String.format("FL%08d", mSequence.getCurrentNumber() + 1);
     }
 }

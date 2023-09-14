@@ -6,7 +6,9 @@ import bamv.training.microposts.form.MicropostForm;
 import bamv.training.microposts.form.UserForm;
 import bamv.training.microposts.service.FollowService;
 import bamv.training.microposts.service.MicropostService;
+import bamv.training.microposts.service.UserListService;
 import bamv.training.microposts.service.UserService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.util.List;
 
 @Controller
 public class MicropostsController {
+
     @Autowired
     private UserService userService;
 
@@ -30,6 +34,10 @@ public class MicropostsController {
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private UserListService userListService;
+
 
     @GetMapping("/micropostshome")
     String micropostshome(Model model, @ModelAttribute MicropostForm micropostForm, BindingResult bindingResult, HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "1") int page) {
@@ -91,6 +99,41 @@ public class MicropostsController {
         model.addAttribute("page", page);
 
         return "myprofile";
+    }
+
+    @GetMapping("/userlist")
+    String userlist(Model model, HttpServletRequest httpServletRequest) {
+        /* ユーザー認証情報からユーザIDを取得 */
+        String userId = httpServletRequest.getRemoteUser();
+
+        /* Model ⇔ Controller */
+        List<UserDto> userList = userListService.findAll();
+
+        /* View ⇔ Controller */
+        model.addAttribute("userList", userList);
+        model.addAttribute("loggedInUserId", userId);
+
+        return "userlist";
+    }
+
+    @GetMapping("/follow")
+    String follow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
+        /* ユーザー認証情報からユーザIDを取得 */
+        String userId = httpServletRequest.getRemoteUser();
+
+        userListService.follow(userId, followeeId);
+
+        return "redirect:/userlist";
+    }
+
+    @GetMapping("/unfollow")
+    String unfollow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
+        /* ユーザー認証情報からユーザIDを取得 */
+        String userId = httpServletRequest.getRemoteUser();
+
+        userListService.unfollow(userId, followeeId);
+
+        return "redirect:/userlist";
     }
 
     @GetMapping("/signup")
