@@ -27,9 +27,9 @@ import java.util.List;
 @Controller
 public class MicropostsController {
     //あとでServiceに分離する/////////////////////
-    record User(String user_id, String name) {
-    }
-    private List<MicropostsController.User> userList = new ArrayList<>();
+    //record User(String userId, String name) {
+    //}
+    //private List<UserDto> userList = new ArrayList<>();
     private final UserListDao dao; //daoはなんかの予約語？
     @Autowired
     MicropostsController(UserListDao dao) {
@@ -50,7 +50,7 @@ public class MicropostsController {
     @GetMapping("/userlist")
     String userlist(Model model, HttpServletRequest httpServletRequest) {
         String userId = httpServletRequest.getRemoteUser();
-        List<User> userList = dao.findAll();
+        List<UserDto> userList = dao.findAll();
         model.addAttribute("userList", userList);
         model.addAttribute("loggedInUserId", userId);
         return "userlist";

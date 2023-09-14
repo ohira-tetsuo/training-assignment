@@ -1,5 +1,6 @@
 package bamv.training.microposts.controller;
 
+import bamv.training.microposts.dto.UserDto;
 import bamv.training.microposts.service.impl.SequenceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,13 +20,13 @@ public class UserListDao {
         this.sequenceService = sequenceService;
     }
 
-    public List<MicropostsController.User> findAll() {
-        String query = "SELECT * FROM m_user";
+    public List<UserDto> findAll() {
+        String query = "SELECT user_id AS userId, name FROM m_user";
 
         List<Map<String, Object>> result = jdbcTemplate.queryForList(query);
-        List<MicropostsController.User> userList = result.stream()
-                .map((Map<String, Object> row) -> new MicropostsController.User(
-                        row.get("user_id").toString(),
+        List<UserDto> userList = result.stream()
+                .map((Map<String, Object> row) -> new UserDto (
+                        row.get("userId").toString(),
                         row.get("name").toString()))
                 .toList();
         return userList;

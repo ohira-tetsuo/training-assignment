@@ -14,7 +14,8 @@
     <div class="row">
         <div class="col-md-8">
             <h3>ユーザー一覧</h3>
-            <div class="card mb-3" th:each="user : ${userList}"  th:unless="${user.user_id == loggedInUserId}">
+            <div class="card mb-3" th:each="user : ${userList}">
+<!--                th:unless="${user.user_id == loggedInUserId}">-->
                 <div class="row g-0">
                     <div class="col-md-2 d-flex align-items-center justify-content-center">
                         <span style="font-size: 100px" class="material-icons">person</span>
@@ -22,14 +23,14 @@
                     <div class="col-md-10">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <span th:text="${user.user_id}"></span>
+                                <span th:text="${user.userId}"></span>
                                 <form action="/follow">
                                     <button type="submit" id="follow_button">フォロー</button>
-                                    <input type="hidden" name="followee_id" th:value="${user.user_id}"/>
+                                    <input type="hidden" name="followee_id" th:value="${user.userId}"/>
                                 </form>
                                 <form action="/unfollow">
                                     <button type="submit" id="unfollow_button">アンフォロー</button>
-                                    <input type="hidden" name="followee_id" th:value="${user.user_id}"/>
+                                    <input type="hidden" name="followee_id" th:value="${user.userId}"/>
                                 </form>
                             </h5>
                         </div>
