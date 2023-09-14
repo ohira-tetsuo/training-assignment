@@ -1,7 +1,5 @@
 package bamv.training.microposts.controller;
 
-import bamv.training.microposts.dao.TUserListDao;
-import bamv.training.microposts.dao.impl.TUserListDaoImpl;
 import bamv.training.microposts.dto.MicropostDto;
 import bamv.training.microposts.dto.UserDto;
 import bamv.training.microposts.form.MicropostForm;
@@ -27,19 +25,6 @@ import java.util.List;
 
 @Controller
 public class MicropostsController {
-    //あとでServiceに分離する/////////////////////
-    //record User(String userId, String name) {
-    //}
-    //private List<UserDto> userList = new ArrayList<>();
-    //private final TUserListDao dao; //daoはなんかの予約語？
-    //@Autowired
-    //private TUserListDaoImpl TUserListDao;
-
-    //@Autowired
-    //MicropostsController(TUserListDao dao) {
-    //    this.dao = dao;
-    //}
-    ////////////////////////////////////////////
 
     @Autowired
     private UserService userService;
@@ -50,34 +35,8 @@ public class MicropostsController {
     @Autowired
     private FollowService followService;
 
-    //あとで、下に移動させる
     @Autowired
     private UserListService userListService;
-    @GetMapping("/userlist")
-    String userlist(Model model, HttpServletRequest httpServletRequest) {
-        String userId = httpServletRequest.getRemoteUser();
-        List<UserDto> userList = userListService.findAll();
-        model.addAttribute("userList", userList);
-        model.addAttribute("loggedInUserId", userId);
-        return "userlist";
-    }
-    //////////////////////////////////////////////
-
-    //follow, unfollow
-    @GetMapping("/follow")
-    String follow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
-        String userId = httpServletRequest.getRemoteUser();
-        userListService.follow(userId, followeeId);
-        return "redirect:/userlist";
-    }
-    @GetMapping("/unfollow")
-    String unfollow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
-        String userId = httpServletRequest.getRemoteUser();
-        userListService.unfollow(userId, followeeId);
-        return "redirect:/userlist";
-    }
-
-    /////////////////////////////////////////////
 
 
     @GetMapping("/micropostshome")
@@ -140,6 +99,41 @@ public class MicropostsController {
         model.addAttribute("page", page);
 
         return "myprofile";
+    }
+
+    @GetMapping("/userlist")
+    String userlist(Model model, HttpServletRequest httpServletRequest) {
+        /* ユーザー認証情報からユーザIDを取得 */
+        String userId = httpServletRequest.getRemoteUser();
+
+        /* Model ⇔ Controller */
+        List<UserDto> userList = userListService.findAll();
+
+        /* View ⇔ Controller */
+        model.addAttribute("userList", userList);
+        model.addAttribute("loggedInUserId", userId);
+
+        return "userlist";
+    }
+
+    @GetMapping("/follow")
+    String follow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
+        /* ユーザー認証情報からユーザIDを取得 */
+        String userId = httpServletRequest.getRemoteUser();
+
+        userListService.follow(userId, followeeId);
+
+        return "redirect:/userlist";
+    }
+
+    @GetMapping("/unfollow")
+    String unfollow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
+        /* ユーザー認証情報からユーザIDを取得 */
+        String userId = httpServletRequest.getRemoteUser();
+
+        userListService.unfollow(userId, followeeId);
+
+        return "redirect:/userlist";
     }
 
     @GetMapping("/signup")

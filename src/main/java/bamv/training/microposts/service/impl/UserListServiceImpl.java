@@ -15,7 +15,7 @@ public class UserListServiceImpl implements UserListService {
         private TUserListDao tUserListDao;
 
         public List<UserDto> findAll() {
-            return tUserListDao.findAllUser();
+            return tUserListDao.listAllUser();
         }
         public int follow(String userId, String followeeId) {
             return tUserListDao.addNewFollow(userId, followeeId);

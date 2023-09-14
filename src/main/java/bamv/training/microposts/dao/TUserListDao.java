@@ -7,9 +7,7 @@ import java.util.List;
 
 @Repository
 public interface TUserListDao {
-
-    //アクセス修飾子をすべて削除
-    List<UserDto> findAllUser();
+    List<UserDto> listAllUser();
 
     int addNewFollow(String userId, String followeeId);
 
