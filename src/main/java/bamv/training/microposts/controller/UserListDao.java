@@ -33,7 +33,7 @@ public class UserListDao {
 
     //String newMicropostId = sequenceService.issueSequence("micropost_id");
     public int follow(String userId, String followeeId) {
-        String newFollowId = sequenceService.issueSequence("micropost_id");
+        String newFollowId = sequenceService.issueSequence("follow_id");
         int number = jdbcTemplate.update("INSERT INTO t_follow (follow_id, following_user_id, followed_user_id) VALUES (?, ?, ?)", newFollowId, userId, followeeId);
         return number;
     }

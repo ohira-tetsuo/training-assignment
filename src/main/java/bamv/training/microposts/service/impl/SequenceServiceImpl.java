@@ -21,6 +21,9 @@ public class SequenceServiceImpl implements SequenceService {
     public String issueSequence(String idName) {
         MSequence mSequence = mSequenceDao.findSequence(idName);
         mSequenceDao.incrementSequenceCurrentNumber(mSequence);
-        return String.format("MP%08d", mSequence.getCurrentNumber() + 1);
+        if (idName.equals("micropost_id"))
+            return String.format("MP%08d", mSequence.getCurrentNumber() + 1);
+        //SequenceSericveをつかいたいインスタンスが増えたらめんどくさくなる
+        return String.format("FL%08d", mSequence.getCurrentNumber() + 1);
     }
 }
