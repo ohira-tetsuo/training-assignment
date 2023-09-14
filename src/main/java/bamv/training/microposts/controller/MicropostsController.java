@@ -57,7 +57,9 @@ public class MicropostsController {
 
     //follow, unfollow
     @GetMapping("/follow")
-    String follow(Model model) {
+    String follow(@RequestParam("followee_id") String followeeId, HttpServletRequest httpServletRequest) {
+        String userId = httpServletRequest.getRemoteUser();
+        dao.follow(userId, followeeId);
         return "redirect:/userlist";
     }
     @GetMapping("/unfollow")
