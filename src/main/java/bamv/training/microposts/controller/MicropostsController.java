@@ -7,6 +7,8 @@ import bamv.training.microposts.form.UserForm;
 import bamv.training.microposts.service.FollowService;
 import bamv.training.microposts.service.MicropostService;
 import bamv.training.microposts.service.UserService;
+import bamv.training.microposts.controller.UserListDao;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MicropostsController {
+    //あとでServiceに分離する/////////////////////
+    record User(String user_id, String name, String password) {
+    }
+    private List<MicropostsController.User> userList = new ArrayList<>();
+    private final UserListDao dao; //daoはなんかの予約語？
+    @Autowired
+    MicropostsController(UserListDao dao) {
+        this.dao = dao;
+    }
+    ////////////////////////////////////////////
+
     @Autowired
     private UserService userService;
 
@@ -31,6 +46,23 @@ public class MicropostsController {
     @Autowired
     private FollowService followService;
 
+    //あとで、下に移動させる
+    @GetMapping("/userlist")
+    String userlist(Model model) {
+        List<User> userList = dao.findAll();
+        model.addAttribute("userList", userList);
+        return "userlist";
+    }
+    //////////////////////////////////////////////
+
+    ////follow, unfollow
+    //@GetMapping("/follow")
+    //String follow(Model model) {
+    //}
+    //@GetMapping("/unfollow")
+    //String unfollow(Model model) {
+    //}
+    /////////////////////////////////////////////////
     @GetMapping("/micropostshome")
     String micropostshome(Model model, @ModelAttribute MicropostForm micropostForm, BindingResult bindingResult, HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "1") int page) {
         /* ユーザー認証情報からユーザIDを取得 */
